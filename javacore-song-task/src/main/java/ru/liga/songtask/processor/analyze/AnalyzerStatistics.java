@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.liga.songtask.domain.Note;
 import ru.liga.songtask.domain.NoteSign;
-import ru.liga.songtask.domain.VoiceValue;
 import ru.liga.songtask.util.SongUtils;
 
 import java.util.HashMap;
@@ -32,8 +31,8 @@ class AnalyzerStatistics {
             if (highestNote.sign().getMidi() < note.sign().getMidi()) highestNote = note;
         }
 
-        log.info("Highest: '{}'", highestNote.sign().getNoteName());
-        log.info("Lowest: '{}'", lowestNote.sign().getNoteName());
+        log.info("Highest: '{}'", highestNote.sign().fullName());
+        log.info("Lowest: '{}'", lowestNote.sign().fullName());
         log.info("Range: '{}'", highestNote.sign().getMidi() - lowestNote.sign().getMidi());
     }
 
@@ -59,6 +58,6 @@ class AnalyzerStatistics {
             else count.put(note.sign(), 1);
 
         for (NoteSign key : count.keySet())
-            log.info("'{}': '{}'", key.getNoteName(), count.get(key));
+            log.info("'{}': '{}'", key.fullName(), count.get(key));
     }
 }
