@@ -14,8 +14,8 @@ class AnalyzerStatistics {
 
     private static final Logger log = LoggerFactory.getLogger(AnalyzerStatistics.class);
 
-    static void getAllStatistics(VoiceValue value, List<Note> notes, float bpm, int resolution) {
-        log.info("Get all statistics for Track - '{}'", value);
+    static void getAllStatistics(List<Note> notes, float bpm, int resolution) {
+        log.info("Get all statistics for Track");
         getRange(notes);
         getCountByTicks(notes, bpm, resolution);
         getCountByFullName(notes);
@@ -32,8 +32,8 @@ class AnalyzerStatistics {
             if (highestNote.sign().getMidi() < note.sign().getMidi()) highestNote = note;
         }
 
-        log.info("Highest: '{}'", highestNote.sign().fullName());
-        log.info("Lowest: '{}'", lowestNote.sign().fullName());
+        log.info("Highest: '{}'", highestNote.sign().getNoteName());
+        log.info("Lowest: '{}'", lowestNote.sign().getNoteName());
         log.info("Range: '{}'", highestNote.sign().getMidi() - lowestNote.sign().getMidi());
     }
 
@@ -59,6 +59,6 @@ class AnalyzerStatistics {
             else count.put(note.sign(), 1);
 
         for (NoteSign key : count.keySet())
-            log.info("'{}': '{}'", key, count.get(key));
+            log.info("'{}': '{}'", key.getNoteName(), count.get(key));
     }
 }
