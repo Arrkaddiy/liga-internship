@@ -22,7 +22,7 @@ public class Manager {
         ExecuteProcessFactory processFactory = new ExecuteProcessFactory();
         Optional<ExecuteProcess> process = processFactory.createExecuteProcess(parametersParser);
 
-        process.ifPresent(executeProcess -> executeProcess.execute(midiFile));
+        process.orElseThrow(IllegalArgumentException::new).execute(midiFile);
         log.info("End program");
     }
 }

@@ -32,6 +32,14 @@ public class Note {
         return startTick + durationTicks;
     }
 
+    public Note compareToLowest(Note note) {
+        return this.sign().getMidi() < note.sign().getMidi() ? this : note;
+    }
+
+    public Note compareToHighest(Note note) {
+        return this.sign().getMidi() > note.sign().getMidi() ? this : note;
+    }
+
     @Override
     public String toString() {
         return "{" +

@@ -39,7 +39,15 @@
         </encoder>
     </appender>
 
-    <logger name="ru.liga.songtask.processor.analyze.AnalyzerStatistics" level="info" additivity="true">
+    <logger name="ru.liga.songtask.processor.analyze.CalculationCountByFullName" level="info" additivity="true">
+        <appender-ref ref="ANALYZE-FILE"/>
+    </logger>
+
+    <logger name="ru.liga.songtask.processor.analyze.CalculationCountByTicks" level="info" additivity="true">
+        <appender-ref ref="ANALYZE-FILE"/>
+    </logger>
+
+    <logger name="ru.liga.songtask.processor.analyze.CalculationRange" level="info" additivity="true">
         <appender-ref ref="ANALYZE-FILE"/>
     </logger>
 

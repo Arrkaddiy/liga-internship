@@ -29,10 +29,19 @@ public class Analyzer implements ExecuteProcess {
         log.debug("Analyze midi file");
         Tempo tempo = SongUtils.getTempoFromMidiFile(midiFile);
         List<MidiTrack> voiceMidiTrack = getVoiceMidiTrack(midiFile);
-        if (tempo != null) {
-            voiceMidiTrack.forEach(
-                    midiTrack -> AnalyzerStatistics.getAllStatistics(getNoteByMidiTrack(midiTrack), tempo.getBpm(), midiFile.getResolution()));
-        }
+
+        voiceMidiTrack.forEach(midiTrack -> {
+            List<Note> notes = getNoteByMidiTrack(midiTrack);
+
+            CalculationRange calculationRange = new CalculationRange();
+            calculationRange.calculation(notes);
+
+            CalculationCountByTicks calculationCountByTicks = new CalculationCountByTicks();
+            calculationCountByTicks.calculation(notes, tempo.getBpm(), midiFile.getResolution());
+
+            CalculationCountByFullName calculationCountByFullName = new CalculationCountByFullName();
+            calculationCountByFullName.calculation(notes);
+        });
     }
 
     private List<Note> getNoteByMidiTrack(MidiTrack midiTrack) {
@@ -61,7 +70,6 @@ public class Analyzer implements ExecuteProcess {
         }
 
         return result;
-
     }
 
     private List<MidiTrack> getTextMidiTrack(MidiFile midiFile) {
